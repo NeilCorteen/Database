@@ -1,5 +1,13 @@
 #Lab SQL 8 RANK
 
+#Tips From Lecture
+#select  title, length, rating, DENSE_RANK() over (partition by rating order by length DESC)
+#from film
+
+#select  title, length, RANK() over (order by length ASC)
+#from film
+
+
 use sakila;
 #Inspect the database structure and find the best-fitting table to analyse for the next task.
 #Answer: right click on sakila schema, schema inspetor
@@ -11,6 +19,7 @@ CREATE VIEW rankingByLength AS
 SELECT title, length,
 RANK() OVER (order by length ASC) 'rank'
 FROM film;
+
 
 
 #Build on top of the previous query and rank films by length within the rating category (filter out the rows that have nulls or 0s in length column). In your output, only select the columns title, length, rating and the rank.
