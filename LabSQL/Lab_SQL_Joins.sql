@@ -49,6 +49,19 @@ on store.store_id=staff_id;
 
 
 #Display the top 5 categories with highest revenue (payment amount) in descending order.
-
+SELECT 
+name            AS categoty,
+	SUM(amount)     AS `gross revenue`
+FROM sakila.payment
+	JOIN (sakila.rental
+		JOIN (sakila.inventory
+			JOIN (sakila.film_category
+				JOIN sakila.category USING (category_id))
+			USING (film_id))
+		USING (inventory_id))
+	USING (rental_id)
+GROUP BY category_id
+ORDER BY `gross revenue` DESC
+LIMIT 5;
 
 #Is the Academy Dinosaur movie available for rent from Store 1? If yes, display the title, store_id and inventory_id of the available copies of that movie.
